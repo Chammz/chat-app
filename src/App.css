@@ -1,0 +1,20 @@
+.App {
+  /*text-align: center;*/
+  display: flex;
+}
+
+.App-sidebar {
+  background-color: #222;
+  height: 100vh;
+  padding: 20px;
+  color: white;
+}
+
+.App-body {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
