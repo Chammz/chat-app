@@ -5,7 +5,10 @@ import db from './lib/firebase.js'
 class App extends Component {
 
   render() {
-    console.log(db())
+    db().then(function(res) {
+      console.log(res)
+    })
+
     return (
       <div className="App">
         <div className="App-sidebar">
