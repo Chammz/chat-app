@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+import db from './lib/firebase.js'
 
 class App extends Component {
+
   render() {
+    console.log(db())
     return (
       <div className="App">
         <div className="App-sidebar">
