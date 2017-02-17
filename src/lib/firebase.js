@@ -14,13 +14,13 @@ const config = {
 
 // exporting the fetchRooms function and return
 // the response after converting it to a json/javascript object
-export default function fetchRooms() {
+export function fetchRooms() {
   // fetch is available in JavaScript to fetch data from
-  // REST APIs from a URL, like firebase. Also calling the json 
+  // REST APIs from a URL, like firebase. Also calling the json
   // directly from the firebase url. Note I am adding /rooms to the url
   return fetch(`${config.databaseURL}/rooms.json`).then(
     // "then" is how you handle Promises, part of the native
-    // JavaScript API, never used in Angular, but used vanilla 
+    // JavaScript API, never used in Angular, but used vanilla
     // JavaScript pretty heavily.
     function(res) {
       // the fetch returns a Promise, which can be parsed and return
@@ -30,3 +30,6 @@ export default function fetchRooms() {
     })
 }
 
+export function anotherOne() {
+  console.log("this happened")
+}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import db from './lib/firebase.js'
+import {fetchRooms, anotherOne} from './lib/firebase.js'
 
 class App extends Component {
 
   render() {
-    db().then(function(res) {
+    anotherOne()
+    fetchRooms().then(function(res) {
       console.log(res)
     })
 
@@ -13,6 +14,11 @@ class App extends Component {
       <div className="App">
         <div className="App-sidebar">
           <h2>Chat App</h2>
+          <ul>
+            <li>Room 1</li>
+            <li>Room 2</li>
+            <li>Room 3</li>
+          </ul>
         </div>
         <p className="App-body">
           text goes here evenetually.
