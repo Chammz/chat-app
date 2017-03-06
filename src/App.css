@@ -14,6 +14,17 @@
   font-size: large;
 }
 
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: relative;
+}
+
+.chat-modal {
+  display: relative;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

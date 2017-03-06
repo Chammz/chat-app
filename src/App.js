@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {fetchRooms, anotherOne} from './lib/firebase.js'
-import {Modal, Button} from 'react-bootstrap';
+import {fetchRooms} from './lib/firebase.js'
+import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 
 // looking into ES6 code school course
 class App extends Component {
@@ -46,17 +46,24 @@ class App extends Component {
     return (
       <div className="App">
         <div className="modal-container" style={{height: 200}}>
+
         <Modal
           show={showModal}
           onHide={close}
         >
+
            <Modal.Header>
-             <Modal.Title>Modal title</Modal.Title>
+             <Modal.Title>Create new room</Modal.Title>
            </Modal.Header>
 
            <Modal.Body>
-             One fine body...
+             <Navbar.Form>
+              <FormGroup>
+                <FormControl type="text" placeholder="Enter a Room Name" />
+              </FormGroup>
+              </Navbar.Form>
            </Modal.Body>
+
 
            <Modal.Footer>
              <Button onClick={this.closeModal}>Close</Button>
@@ -64,8 +71,18 @@ class App extends Component {
            </Modal.Footer>
          </Modal>
          </div>
+
         <div className="App-sidebar">
           <h2>Chat App</h2>
+          <div className="chat-modal">
+            <Button
+              bsStyle="primary"
+              bsSize="large"
+              onClick={this.openModal}
+              >
+              New Room
+            </Button>
+          </div>
           <ul>
             {roomKeys.map((room) => (
               <li>{this.state.rooms[room]}</li>
@@ -73,6 +90,8 @@ class App extends Component {
 
           </ul>
         </div>
+
+
         <p className="App-body">
           text goes here evenetually.
         </p>
