@@ -1,5 +1,5 @@
 // You will need Firebase this to send the data to firebase
-// import Firebase from 'firebase'
+import Firebase from 'firebase'
 
 // You need to set your headers to true to allow: https://firebase.google.com/docs/database/security/
 const config = {
@@ -10,7 +10,7 @@ const config = {
   messagingSenderId: "827194438724"
 };
 
-// const store = Firebase.initializeApp(config)
+const store = Firebase.initializeApp(config)
 
 // exporting the fetchRooms function and return
 // the response after converting it to a json/javascript object
@@ -30,6 +30,6 @@ export function fetchRooms() {
     })
 }
 
-export function anotherOne() {
-  console.log("this happened")
+export function createRoom(data) {
+  store.database().ref(`/rooms/${data}`).set(data);
 }

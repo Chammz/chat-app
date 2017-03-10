@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
-import {fetchRooms} from './lib/firebase.js'
+import {fetchRooms, createRoom} from './lib/firebase.js'
 import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 
 // looking into ES6 code school course
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {rooms: [], showModal: false}
+    this.state = {rooms: [], showModal: false, input: ""}
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     // fetch from firebase
@@ -30,11 +33,22 @@ class App extends Component {
     this.setState({ showModal: true });
   }
 
+  handleChange(event) {
+    this.setState({input: event.target.value});
+  }
+
+  handleSubmit(event) {
+    createRoom(this.state.input)
+    this.setState({showModal: false})
+    this.fetchRoomData()
+    // this.forceUpdate();
+  }
   // what is this doing?
   render() {
+    console.log(Object.keys(this.state.rooms).length)
     // grabbing keys from firebase object
     // console.log(this.state)
-    const {rooms, showModal} = this.state
+    const {rooms, showModal, input} = this.state
     // const rooms = this.state.rooms
     // const showModal = this.state.showModal
     const roomKeys = Object.keys(rooms);
@@ -59,7 +73,7 @@ class App extends Component {
            <Modal.Body>
              <Navbar.Form>
               <FormGroup>
-                <FormControl type="text" placeholder="Enter a Room Name" />
+                <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter a Room Name" />
               </FormGroup>
               </Navbar.Form>
            </Modal.Body>
@@ -67,7 +81,8 @@ class App extends Component {
 
            <Modal.Footer>
              <Button onClick={this.closeModal}>Close</Button>
-             <Button bsStyle="primary">Save changes</Button>
+             <Button onClick={this.handleSubmit}
+              bsStyle="primary">Save</Button>
            </Modal.Footer>
          </Modal>
          </div>
@@ -85,7 +100,7 @@ class App extends Component {
           </div>
           <ul>
             {roomKeys.map((room) => (
-              <li>{this.state.rooms[room]}</li>
+              <li key={room}>{this.state.rooms[room]}</li>
             ))}
 
           </ul>
