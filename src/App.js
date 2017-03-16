@@ -20,7 +20,6 @@ class App extends Component {
   // populates component state
   fetchRoomData = () => {
     fetchRooms().then((res) => {
-      // set state value as rooms
       this.setState({rooms: res})
     })
   }
@@ -38,25 +37,14 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    createRoom(this.state.input)
+    createRoom(this.state.input).then((res) => this.fetchRoomData())
     this.setState({showModal: false})
-    this.fetchRoomData()
-    // this.forceUpdate();
   }
   // what is this doing?
   render() {
-    console.log(Object.keys(this.state.rooms).length)
-    // grabbing keys from firebase object
-    // console.log(this.state)
     const {rooms, showModal, input} = this.state
-    // const rooms = this.state.rooms
-    // const showModal = this.state.showModal
     const roomKeys = Object.keys(rooms);
-    // console.log(this.state)
-    // const {showModal} = this.state
 
-    // room in this.state.rooms
-    // this.state.rooms.map
     return (
       <div className="App">
         <div className="modal-container" style={{height: 200}}>
@@ -99,11 +87,11 @@ class App extends Component {
             </Button>
           </div>
           <ul>
-            {roomKeys.map((room) => (
-              <li key={room}>{this.state.rooms[room]}</li>
+            {roomKeys.map((key) => (
+              <li key={key}>{rooms[key]}</li>
             ))}
-
           </ul>
+
         </div>
 
 
