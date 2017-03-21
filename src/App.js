@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
 import {fetchRooms, createRoom} from './lib/firebase.js'
-import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+import Modal from "./NewChatRoomModal"
 
 // looking into ES6 code school course
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {rooms: [], showModal: false, input: ""}
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {rooms: [], showModal: false}
   }
   componentDidMount() {
     // fetch from firebase
     this.fetchRoomData()
-  }
-
-  // populates component state
-  fetchRoomData = () => {
-    fetchRooms().then((res) => {
-      this.setState({rooms: res})
-    })
   }
 
   closeModal = () => {
@@ -32,14 +23,13 @@ class App extends Component {
     this.setState({ showModal: true });
   }
 
-  handleChange(event) {
-    this.setState({input: event.target.value});
+  // populates component state
+  fetchRoomData = () => {
+    fetchRooms().then((res) => {
+      this.setState({rooms: res, showModal: false})
+    })
   }
 
-  handleSubmit(event) {
-    createRoom(this.state.input).then((res) => this.fetchRoomData())
-    this.setState({showModal: false})
-  }
   // what is this doing?
   render() {
     const {rooms, showModal, input} = this.state
@@ -49,32 +39,12 @@ class App extends Component {
       <div className="App">
         <div className="modal-container" style={{height: 200}}>
 
-        <Modal
-          show={showModal}
-          onHide={close}
-        >
 
-           <Modal.Header>
-             <Modal.Title>Create new room</Modal.Title>
-           </Modal.Header>
-
-           <Modal.Body>
-             <Navbar.Form>
-              <FormGroup>
-                <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter a Room Name" />
-              </FormGroup>
-              </Navbar.Form>
-           </Modal.Body>
-
-
-           <Modal.Footer>
-             <Button onClick={this.closeModal}>Close</Button>
-             <Button onClick={this.handleSubmit}
-              bsStyle="primary">Save</Button>
-           </Modal.Footer>
-         </Modal>
          </div>
-
+        <Modal
+          showModal={showModal}
+          input={input} fetchRoomData={() => this.fetchRoomData()}
+        />
         <div className="App-sidebar">
           <h2>Chat App</h2>
           <div className="chat-modal">
@@ -93,7 +63,6 @@ class App extends Component {
           </ul>
 
         </div>
-
 
         <p className="App-body">
           text goes here evenetually.

@@ -31,5 +31,5 @@ export function fetchRooms() {
 }
 
 export function createRoom(data) {
-  store.database().ref(`/rooms/${data}`).set(data);
+  return store.database().ref(`/rooms/${data}`).set(data);
 }
