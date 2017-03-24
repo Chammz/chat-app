@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
-import {fetchRooms, createRoom} from './lib/firebase.js'
-import {Button} from 'react-bootstrap';
-import Modal from "./NewChatRoomModal"
+import {fetchRooms,fetchMessages, createRoom} from './lib/firebase.js';
+import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
+import  ListMessage from './ListMessage';
 
 // looking into ES6 code school course
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {rooms: [], showModal: false}
+    this.state = {messages: [], rooms: [], showModal: false, input: ""}
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     // fetch from firebase
     this.fetchRoomData()
+    this.fetchMessages()
+  }
+
+  // populates component state
+  fetchRoomData = () => {
+    fetchRooms().then((res) => {
+      this.setState({rooms: res})
+    })
+  }
+
+  fetchMessages = () => {
+    fetchMessages().then((res) => {
+      this.setState({messages: res})
+    })
   }
 
   closeModal = () => {
@@ -23,28 +40,31 @@ class App extends Component {
     this.setState({ showModal: true });
   }
 
-  // populates component state
-  fetchRoomData = () => {
-    fetchRooms().then((res) => {
-      this.setState({rooms: res, showModal: false})
-    })
+  handleChange(event) {
+    this.setState({input: event.target.value});
   }
 
+  handleSubmit(event) {
+    createRoom(this.state.input).then((res) => this.fetchRoomData())
+    this.setState({showModal: false})
+  }
   // what is this doing?
   render() {
-    const {rooms, showModal, input} = this.state
+    const {rooms, messages, showModal, input} = this.state
+    const mappedMessages = Object.keys(messages).map((key) => messages[key])
     const roomKeys = Object.keys(rooms);
 
     return (
       <div className="App">
         <div className="modal-container" style={{height: 200}}>
 
-
-         </div>
         <Modal
-          showModal={showModal}
-          input={input} fetchRoomData={() => this.fetchRoomData()}
+          show={showModal}
+          onHide={close}
         />
+
+        </div>
+
         <div className="App-sidebar">
           <h2>Chat App</h2>
           <div className="chat-modal">
@@ -64,9 +84,14 @@ class App extends Component {
 
         </div>
 
-        <p className="App-body">
-          text goes here evenetually.
-        </p>
+
+        <div className="App-body">
+          <div>
+            {
+              mappedMessages.length > 0 ? <ListMessage messages={mappedMessages} /> : 'Loading messages…'
+            }
+          </div>
+        </div>
       </div>
     );
   }

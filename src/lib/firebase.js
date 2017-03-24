@@ -28,8 +28,16 @@ export function fetchRooms() {
       return res.json()
       // converting that reponse of room data to JSON
     })
+
 }
 
+  export function fetchMessages() {
+    return fetch(`${config.databaseURL}/messages.json`).then(
+      function(res) {
+        return res.json()
+      }
+    )
+  }
 export function createRoom(data) {
   return store.database().ref(`/rooms/${data}`).set(data);
 }
