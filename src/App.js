@@ -3,6 +3,8 @@ import './App.css';
 import {fetchRooms,fetchMessages, createRoom} from './lib/firebase.js';
 import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import  ListMessage from './ListMessage';
+import NewChatRoomModal from './NewChatRoomModal.js'
+import NewUser from './NewUser.js'
 
 // looking into ES6 code school course
 class App extends Component {
@@ -56,15 +58,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="modal-container" style={{height: 200}}>
-
-        <Modal
-          show={showModal}
-          onHide={close}
+        <NewChatRoomModal
+          onClose={this.closeModal}
+          onSubmit={this.handleSubmit}
+          showModal={this.state.showModal}
         />
-
-        </div>
-
         <div className="App-sidebar">
           <h2>Chat App</h2>
           <div className="chat-modal">
