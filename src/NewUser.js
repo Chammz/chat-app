@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
-
+import cookie from 'react-cookie';
 
 class NewUser extends Component {
 
@@ -14,19 +14,23 @@ class NewUser extends Component {
 
 
   handleChange(event) {
+    console.log(event.target.value)
     this.setState({input: event.target.value});
   }
 
   handleSubmit(event) {
+    cookie.save("username", this.state.input);
     this.setState({showModal: false})
   }
+
+
 
   render() {
     const {input, showModal} = this.props
     return (
 
     <Modal
-      show={showModal}
+      show={this.state.showModal || this.props.showModal}
       onHide={close}
     >
 

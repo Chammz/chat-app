@@ -5,12 +5,13 @@ import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
 import  ListMessage from './ListMessage';
 import NewChatRoomModal from './NewChatRoomModal.js'
 import NewUser from './NewUser.js'
+import cookie from 'react-cookie'
 
 // looking into ES6 code school course
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {messages: [], rooms: [], showModal: false, input: ""}
+    this.state = {messages: [], rooms: [], showModal: false}
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,8 +47,8 @@ class App extends Component {
     this.setState({input: event.target.value});
   }
 
-  handleSubmit(event) {
-    createRoom(this.state.input).then((res) => this.fetchRoomData())
+  handleSubmit(data) {
+    createRoom(data).then((res) => this.fetchRoomData())
     this.setState({showModal: false})
   }
   // what is this doing?
@@ -55,7 +56,7 @@ class App extends Component {
     const {rooms, messages, showModal, input} = this.state
     const mappedMessages = Object.keys(messages).map((key) => messages[key])
     const roomKeys = Object.keys(rooms);
-
+    const showUserModal = cookie.load('username') === undefined // return true
     return (
       <div className="App">
         <NewChatRoomModal
@@ -63,6 +64,8 @@ class App extends Component {
           onSubmit={this.handleSubmit}
           showModal={this.state.showModal}
         />
+
+        <NewUser showModal={showUserModal}/>
         <div className="App-sidebar">
           <h2>Chat App</h2>
           <div className="chat-modal">

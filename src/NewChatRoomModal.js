@@ -38,7 +38,7 @@ class NewChatModal extends Component {
 
        <Modal.Footer>
          <Button onClick={this.props.onClose}>Close</Button>
-         <Button onClick={this.props.onSubmit}
+         <Button onClick={() => this.props.onSubmit(this.state.input)}
           bsStyle="primary">Save</Button>
        </Modal.Footer>
     </Modal>
