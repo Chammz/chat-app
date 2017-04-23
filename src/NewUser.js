@@ -34,28 +34,31 @@ class NewUser extends Component {
       onHide={close}
     >
 
-       <Modal.Header>
-         <Modal.Title>Create new user</Modal.Title>
-       </Modal.Header>
+     <Modal.Header>
+       <Modal.Title>Create new user</Modal.Title>
+     </Modal.Header>
 
-       <Modal.Body>
-         <Navbar.Form>
-          <FormGroup>
-            <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter your username" />
-          </FormGroup>
-          </Navbar.Form>
-       </Modal.Body>
+     <Modal.Body>
+       <Navbar.Form>
+        <FormGroup>
+          <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter your username" />
+        </FormGroup>
+        </Navbar.Form>
+     </Modal.Body>
 
 
-       <Modal.Footer>
-         <Button onClick={this.closeModal}>Close</Button>
-         <Button onClick={this.handleSubmit}
-          bsStyle="primary">Save</Button>
-       </Modal.Footer>
-    </Modal>
+     <Modal.Footer>
+       <Button onClick={this.closeModal}>Close</Button>
+       <Button onClick={this.handleSubmit}
+        bsStyle="primary">Save</Button>
+     </Modal.Footer>
+  </Modal>
   );
   }
 
 }
 
 export default NewUser
+//Things to do:
+// When saving username, modal does not close
+// Need to be able to log the user out
