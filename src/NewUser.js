@@ -49,7 +49,8 @@ class NewUser extends Component {
 
      <Modal.Footer>
        <Button onClick={this.closeModal}>Close</Button>
-       <Button onClick={this.handleSubmit}
+       <Button onClick={() => this.handleSubmit(this.state.input)}
+         //this.handleSubmit
         bsStyle="primary">Save</Button>
      </Modal.Footer>
   </Modal>
@@ -62,3 +63,4 @@ export default NewUser
 //Things to do:
 // When saving username, modal does not close
 // Need to be able to log the user out
+// When entering username anywhere outside modal. Need to fix TypeError.

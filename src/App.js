@@ -7,7 +7,7 @@ import NewChatRoomModal from './NewChatRoomModal.js'
 import NewUser from './NewUser.js'
 import cookie from 'react-cookie'
 
-// looking into ES6 code school course
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +57,12 @@ class App extends Component {
     const mappedMessages = Object.keys(messages).map((key) => messages[key])
     const roomKeys = Object.keys(rooms);
     const showUserModal = cookie.load('username') === undefined // return true
+
+    const saveUser = () => {
+      if(cookie.save('username') !== ''){
+         this.closeModal()
+         }
+    }
     return (
       <div className="App">
         <NewChatRoomModal
@@ -65,7 +71,10 @@ class App extends Component {
           showModal={this.state.showModal}
         />
 
-        <NewUser showModal={showUserModal}/>
+        <NewUser
+          showModal={showUserModal}
+          onSubmit={this.saveUser}
+        />
         <div className="App-sidebar">
           <h2>Chat App</h2>
           <div className="chat-modal">
