@@ -24,14 +24,13 @@ class NewUser extends Component {
   }
 
 
-
   render() {
     const {input, showModal} = this.props
+    console.log(showModal)
     return (
 
     <Modal
       show={this.state.showModal || this.props.showModal}
-      onHide={close}
     >
 
      <Modal.Header>
@@ -49,8 +48,7 @@ class NewUser extends Component {
 
      <Modal.Footer>
        <Button onClick={this.closeModal}>Close</Button>
-       <Button onClick={() => this.handleSubmit(this.state.input)}
-         //this.handleSubmit
+       <Button onClick={this.handleSubmit}
         bsStyle="primary">Save</Button>
      </Modal.Footer>
   </Modal>
