@@ -14,45 +14,42 @@ class NewUser extends Component {
 
 
   handleChange(event) {
-    console.log(event.target.value)
     this.setState({input: event.target.value});
   }
 
-  handleSubmit(event) {
-    cookie.save("username", this.state.input);
-    this.setState({showModal: false})
+  handleSubmit() {
+    this.props.onSubmit(this.state.input)
   }
 
 
   render() {
-    const {input, showModal} = this.props
-    console.log(showModal)
+    const {showModal} = this.props
+    const {input} = this.state
+    const nameTyped = input === ""
     return (
+      <Modal
+        show={this.props.showModal}
+      >
 
-    <Modal
-      show={this.state.showModal || this.props.showModal}
-    >
+       <Modal.Header>
+         <Modal.Title>Create new user</Modal.Title>
+       </Modal.Header>
 
-     <Modal.Header>
-       <Modal.Title>Create new user</Modal.Title>
-     </Modal.Header>
-
-     <Modal.Body>
-       <Navbar.Form>
-        <FormGroup>
-          <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter your username" />
-        </FormGroup>
-        </Navbar.Form>
-     </Modal.Body>
+       <Modal.Body>
+         <Navbar.Form>
+          <FormGroup>
+            <FormControl onChange={this.handleChange} value={input} type="text" placeholder="Enter your username" />
+          </FormGroup>
+          </Navbar.Form>
+       </Modal.Body>
 
 
-     <Modal.Footer>
-       <Button onClick={this.closeModal}>Close</Button>
-       <Button onClick={this.handleSubmit}
-        bsStyle="primary">Save</Button>
-     </Modal.Footer>
-  </Modal>
-  );
+       <Modal.Footer>
+         <Button disabled={nameTyped} onClick={this.handleSubmit}
+          bsStyle="primary">Save</Button>
+       </Modal.Footer>
+    </Modal>
+    );
   }
 
 }
