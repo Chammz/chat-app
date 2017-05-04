@@ -15,14 +15,14 @@ class App extends Component {
       messages: [],
       rooms: [],
       showModal: false,
-      userName: cookie.load
+      username: cookie.load("username") || null
      }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentWillUpdate() {
     // fetch from firebase
     this.fetchRoomData()
     this.fetchMessages()
@@ -58,18 +58,15 @@ class App extends Component {
     this.setState({showModal: false})
   }
 
-  saveUser = () => {
-    cookie.save('userName', this.state.input, {path: "/"})
-    this.setState({userName: this.state.input})
+  saveUser = (input) => {
+    cookie.save('username', input)
+    this.setState({username: input})
   }
 
-  showUserModal = () => cookie.load('userName') === undefined
-
   render() {
-    const {rooms, messages, showModal, input} = this.state
+    const {username, rooms, messages, showModal, input} = this.state
     const mappedMessages = Object.keys(messages).map((key) => messages[key])
     const roomKeys = Object.keys(rooms);
-    console.log(() => this.showUserModal)
 
     return (
       <div className="App">
@@ -80,11 +77,12 @@ class App extends Component {
         />
 
         <NewUser
-          showModal={() => this.showUserModal()}
+          showModal={!this.state.username}
           onSubmit={this.saveUser}
         />
         <div className="App-sidebar">
           <h2>Chat App</h2>
+          {username && <p>{username} is logged in</p>}
           <div className="chat-modal">
             <Button
               bsStyle="primary"
