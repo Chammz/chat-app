@@ -31,13 +31,17 @@ export function fetchRooms() {
 
 }
 
-  export function fetchMessages() {
-    return fetch(`${config.databaseURL}/messages.json`).then(
-      function(res) {
-        return res.json()
-      }
-    )
-  }
+export function fetchMessages() {
+  return fetch(`${config.databaseURL}/messages.json`).then(
+    function(res) {
+      return res.json()
+    }
+  )
+}
 export function createRoom(data) {
   return store.database().ref(`/rooms/${data}`).set(data);
+}
+
+export function createMessage(data) {
+  return store.database().ref(`/messages/${data}`).set(data);
 }

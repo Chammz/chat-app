@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
-import {fetchRooms,fetchMessages, createRoom} from './lib/firebase';
+import './css/App.css';
+import {fetchRooms,fetchMessages, createRoom, createMessage} from './lib/firebase';
 import {Modal, Button, Navbar, FormGroup, FormControl} from 'react-bootstrap';
-import  ListMessage from './ListMessage';
-import NewChatRoomModal from './NewChatRoomModal'
-import NewUser from './NewUser'
+import  ListMessage from './components/ListMessage';
+import NewChatRoomModal from './components/NewChatRoomModal'
+import NewUser from './components/NewUser'
+import SendMessage from './components/SendMessage'
 import cookie from 'react-cookie'
 
 
@@ -107,6 +108,8 @@ class App extends Component {
               mappedMessages.length > 0 ? <ListMessage messages={mappedMessages} /> : 'Loading messages…'
             }
           </div>
+
+          <SendMessage onSubmit={createMessage} />
         </div>
       </div>
     );
