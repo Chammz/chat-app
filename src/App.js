@@ -23,7 +23,7 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUpdate() {
+  componentDidMount() {
     // fetch from firebase
     this.fetchRoomData()
     this.fetchMessages()
