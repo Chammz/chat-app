@@ -100,9 +100,6 @@ class App extends Component {
 
             ))}
           </ul>
-          {/*// When room is clicked, need to show which room we are in
-          // Loading Messages should NOT show up unless we are in a room
-          // */}
         </div>
 
 
@@ -112,6 +109,7 @@ class App extends Component {
               mappedMessages.length > 0 ? <ListMessage messages={mappedMessages} /> : 'Loading messages…'
             }
           </div>
+
           {
             this.state.currentRoom != null ? <SendMessage onSubmit={createMessage} />
           : 'Please Choose a room'
