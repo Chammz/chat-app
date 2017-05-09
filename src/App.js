@@ -16,6 +16,7 @@ class App extends Component {
       messages: [],
       rooms: [],
       showModal: false,
+      currentRoom: null,
       username: cookie.load("username") || null
      }
 
@@ -95,10 +96,13 @@ class App extends Component {
           </div>
           <ul>
             {roomKeys.map((key) => (
-              <li key={key}>{rooms[key]}</li>
+              <a onClick={() => this.setState({currentRoom: /* not sure what goes here */})}><li key={key}>{rooms[key]}</li></a>
+
             ))}
           </ul>
-
+          {/*// When room is clicked, need to show which room we are in
+          // Loading Messages should NOT show up unless we are in a room
+          // */}
         </div>
 
 
@@ -108,8 +112,10 @@ class App extends Component {
               mappedMessages.length > 0 ? <ListMessage messages={mappedMessages} /> : 'Loading messages…'
             }
           </div>
-
-          <SendMessage onSubmit={createMessage} />
+          {
+            this.state.currentRoom != null ? <SendMessage onSubmit={createMessage} />
+          : 'Please Choose a room'
+          }
         </div>
       </div>
     );

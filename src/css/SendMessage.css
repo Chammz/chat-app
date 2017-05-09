@@ -1,0 +1,17 @@
+.flexcontainer{
+  display: flex;
+
+}
+
+.messageinput {
+   /* This will be twice as big as the small item. */
+   -webkit-flex: 2 0 0;
+   flex: 2 0 0;
+   align-items: flex-start stretch;
+   align-self: : flex-end;
+}
+.messagebutton {
+   -webkit-flex: 1 0 0;
+   flex: 1 0 0;
+   align-self: : flex-end;
+}

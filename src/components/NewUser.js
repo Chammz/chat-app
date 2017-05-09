@@ -55,7 +55,3 @@ class NewUser extends Component {
 }
 
 export default NewUser
-//Things to do:
-// When saving username, modal does not close
-// Need to be able to log the user out
-// When entering username anywhere outside modal. Need to fix TypeError.

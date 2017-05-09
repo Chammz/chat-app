@@ -19,7 +19,7 @@ class SendMessage extends Component {
   handleSubmit() {
     const data = {
       content: this.state.input,
-      roomID:'1',
+      roomID:'currentRoom',
       sentAt: new Date(),
       username: cookie.load("username"),
     }
@@ -29,8 +29,8 @@ class SendMessage extends Component {
 render(){
   return(
     <div>
-      <input onChange={this.handleChange} placeholder="type yo message" />
-      <button onClick={this.handleSubmit}>Submit Message</button>
+      <input className="flexcontainer messageinput" onChange={this.handleChange} placeholder="type yo message" />
+      <button className="flexcontainer messagebutton"onClick={this.handleSubmit}>Submit Message</button>
     </div>
   )
   }
