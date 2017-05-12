@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import cookie from 'react-cookie';
+import uuidV1 from 'uuid/v1';
 
 class SendMessage extends Component {
 
@@ -16,13 +17,15 @@ class SendMessage extends Component {
     this.setState({input: event.target.value});
   }
 
-  handleSubmit() {
+  handleSubmit(props) {
     const data = {
       content: this.state.input,
-      roomID:'currentRoom',
+      roomId: this.props.currentRoom,
+      messageId: uuidV1(),
       sentAt: new Date(),
       username: cookie.load("username"),
     }
+    
     this.props.onSubmit(data)
   }
 

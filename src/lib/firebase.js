@@ -1,6 +1,6 @@
 // You will need Firebase this to send the data to firebase
 import Firebase from 'firebase'
-
+import axios from 'axios'
 // You need to set your headers to true to allow: https://firebase.google.com/docs/database/security/
 const config = {
   apiKey: "AIzaSyCeKpq9Y35-o0-ZrgDIqA4S_Knkvt4xg9E",
@@ -32,9 +32,9 @@ export function fetchRooms() {
 }
 
 export function fetchMessages() {
-  return fetch(`${config.databaseURL}/messages.json`).then(
+  return axios.get(`${config.databaseURL}/messages.json`).then(
     function(res) {
-      return res.json()
+      return res.data;
     }
   )
 }
@@ -43,5 +43,5 @@ export function createRoom(data) {
 }
 
 export function createMessage(data) {
-  return store.database().ref(`/messages/${data}`).set(data);
+  return store.database().ref(`/messages/${data.messageId}`).set(data);
 }
