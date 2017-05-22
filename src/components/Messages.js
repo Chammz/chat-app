@@ -1,5 +1,6 @@
 import React from 'react'
 import ListMessage from './ListMessage'
+
 const Messages = ({mappedMessages}) => (
   <div>
     {
