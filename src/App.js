@@ -8,7 +8,8 @@ import NewUser from './components/NewUser'
 import SendMessage from './components/SendMessage'
 import cookie from 'react-cookie'
 import Messages from './components/Messages'
-
+import Routes from './routes';
+import {Link} from 'react-router';
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class App extends Component {
       messages: [],
       rooms: [],
       showModal: false,
-      currentRoom: null,
       username: cookie.load("username") || null
      }
 
@@ -28,20 +28,12 @@ class App extends Component {
   componentDidMount() {
     // fetch from firebase
     this.fetchRoomData()
-    this.handleFetchMessages()
   }
 
   // populates component state
   fetchRoomData = () => {
     fetchRooms().then((res) => {
       this.setState({rooms: res})
-    })
-  }
-
-  handleFetchMessages = () => {
-    fetchMessages().then((res) => {
-      this.setState({messages: res, messageCount: Object.keys(res).length})
-
     })
   }
 
@@ -62,20 +54,13 @@ class App extends Component {
     this.setState({showModal: false})
   }
 
-  handleCreateMessage=(data)=>{
-    createMessage(data)
-    this.handleFetchMessages();
-  }
-
   saveUser = (input) => {
     cookie.save('username', input)
     this.setState({username: input})
   }
 
   render() {
-    console.log(this.state.messages);
-    const {username, rooms, messages, showModal, input} = this.state
-    const mappedMessages = messages ? Object.keys(messages).map((key) => messages[key]) : [];
+    const {username, rooms, showModal, input} = this.state
     const roomKeys = Object.keys(rooms);
 
     return (
@@ -104,22 +89,14 @@ class App extends Component {
           </div>
           <ul>
             {roomKeys.map((key) => (
-              <a onClick={() => this.setState({currentRoom: key})}><li key={key}>{rooms[key]}</li></a>
-
+              <a key={key} href={`/${key}`}><li>{rooms[key]}</li></a>
             ))}
           </ul>
         </div>
 
 
         <div className="App-body">
-          {this.state.currentRoom != null && <Messages mappedMessages={mappedMessages} />}
-          {
-            this.state.currentRoom != null ? <SendMessage
-             currentRoom={this.state.currentRoom}
-             onSubmit={this.handleCreateMessage}
-              />
-          : 'Please Choose a room'
-          }
+          <Routes />
         </div>
       </div>
     );

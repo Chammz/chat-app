@@ -28,6 +28,23 @@ ul {
   display: relative;
 }
 
+/* Message Stuffmove somwhere else eventuallt */
+.Message {
+  margin-top: 10px;
+}
+
+.ListMessage li:nth-child(even) {
+  background-color: #eee;
+}
+
+.message-body {
+  display: flex;
+}
+
+.message-name {
+  margin-right: 5px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
